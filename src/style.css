@@ -1,0 +1,75 @@
+body{
+    margin:0;
+}
+
+#container{
+    display:grid;
+    grid-template-columns: 200px 1fr;
+    margin-top:150px;
+}
+
+#sidebar{
+    grid-column: 1;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:10px;
+}
+
+#list-modal-container{
+    width:100%;
+    box-sizing: border-box;
+    height:30px;
+    align-items: center;
+    display:none
+}
+
+#create-list-button{
+    height:30px;
+}
+
+#modal-button-container{
+    display:flex;
+    flex-direction: column;
+    margin:5px;
+}
+
+.modal-button{
+    height:50%;
+    font-size: 10px;
+}
+
+#list-name{
+    height:30px;
+    width:100%;
+    box-sizing: border-box;
+}
+
+#todo-lists{
+    display:flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-top:20px;
+}
+
+#main-display{
+    grid-column: 2;
+    display:flex;
+    justify-content: center;
+}
+
+ul{
+    list-style: none;
+    padding:0;
+}
+
+.list-button{
+    border:none;
+    background:none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.list-button:active{
+    color:rgb(0, 0, 255);
+}
