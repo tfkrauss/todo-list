@@ -2,39 +2,6 @@ import "./style.css";
 import { format, compareAsc } from "date-fns";
 import {TodoTask, TodoList, ListsContainer} from "./list-logic.js";
 
-/** 
-
-const walkDog = new TodoTask("walk dog", "Describe walk dog", "02/11/2014", "Notes to walk dog");
-walkDog.setPriorityHigh();
-walkDog.setStatusComplete();
-walkDog.printTask();
-
-
-const walkDog2 = new TodoTask("walk dog2", "Describe walk dog2", "13/11/2014", "Notes to walk dog2");
-walkDog2.setPriorityLow();
-walkDog2.setStatusToDo();
-walkDog2.printTask();
-
-
-
-const walkDogList = new TodoList("walkDogList");
-walkDogList.addTask(walkDog);
-walkDogList.addTask(walkDog2);
-walkDogList.printList();
-
-const walkDogList2 = new TodoList("walkDogList2");
-walkDogList2.addTask(walkDog2);
-
-const lists = new ListsContainer();
-lists.addList(walkDogList);
-lists.addList(walkDogList2);
-lists.printLists();
-lists.removeList(0);
-
-console.log("1 list removed:")
-lists.printLists();
-
-*/
 
 //Lists array holding all todo lists
 const TodoLists = new ListsContainer();
@@ -98,27 +65,8 @@ submitModalButton.addEventListener("click", () => {
 
 
 
-/* 
-    Function to display the contents of a single list in the main-dispaly div 
-    Event listener added to each list-button in the To-Do Lists sidebar
-*/
 
-function displayList(list){
 
-    //Remove default text
-    mainDisplayDefaultText.style.display = "none";
-
-    //Create div to display list contents
-    const listContents = document.createElement("div");
-    const listHeader = document.createElement("h1");
-    listHeader.textContent = list.name;
-
-    //Loop through the list and display all tasks
-    list.forEach((task) => {
-        //Code to display the tasks. Will call functions from list-logic.js
-    })
-
-}
 
 function renderSidebarLists(lists){
 
@@ -183,10 +131,12 @@ createTaskButton.addEventListener("click", (event) => {
     console.log("Task due date " + dueDate);
 
     //Create the new task
-    const newTask = new TodoTask(taskName, taskDescription, dueDate, taskNotes);
+    const newTask = new TodoTask(taskName, taskDescription, dueDate, taskNotes, taskPriority);
 
     //Add new task to the current list
-    TodoLists.getActiveList().addTask(newTask);
+    const currentList = TodoLists.getActiveList();
+    currentList.addTask(newTask);
+    displayList(currentList);
 
     //Show add task button, hide form.
     addTaskButton.style.display = "block";
@@ -194,3 +144,60 @@ createTaskButton.addEventListener("click", (event) => {
 
 
 })
+
+const listTasksContainer = document.querySelector("#list-tasks-container");
+
+function displayTask(task){
+
+    const taskContainer = document.createElement("div");
+    taskContainer.classList.add("task-container");
+
+    const priorityButton = document.createElement("button");
+    priorityButton.classList.add("priority-button");
+
+    const taskTextContainer = document.createElement("div");
+    taskTextContainer.classList.add("task-text");
+
+    const taskNameText = document.createElement("p");
+    taskNameText.textContent = task.getName();
+    taskNameText.classList.add("task-name-text");
+    const taskDescriptionText = document.createElement("p");    
+    taskDescriptionText.textContent = task.getDescription();
+    taskDescriptionText.classList.add("task-description-text");
+    const taskDateText = document.createElement("p");
+    taskDateText.textContent = task.getDueDate();
+    taskDateText.classList.add("due-date-text");
+    const taskNoteText = document.createElement("p");
+    taskNoteText.textContent = task.getNotes();
+    taskNoteText.classList.add("task-note-text");
+    //CHANGE PRIORITY DISPLAY EVENTUALLY
+    const taskPriorityText = document.createElement("p");
+    taskPriorityText.textContent = task.getPriority();
+    console.log("Task priority   text content  :    " + task.getPriority())
+    taskPriorityText.classList.add("task-priority-display");
+
+    listTasksContainer.appendChild(taskContainer);
+    taskContainer.appendChild(priorityButton);
+    taskContainer.appendChild(taskTextContainer);
+    taskTextContainer.appendChild(taskNameText);
+    taskTextContainer.appendChild(taskDescriptionText);
+    taskTextContainer.appendChild(taskDateText);
+    taskTextContainer.appendChild(taskNoteText);
+    taskTextContainer.appendChild(taskPriorityText);
+}
+
+/* 
+    Function to display the contents of a single list in the main-dispaly div 
+    Event listener added to each list-button in the To-Do Lists sidebar
+*/
+
+function displayList(TodoList){
+
+    const list = TodoList.getList();
+
+    listTasksContainer.innerHTML = "";
+
+    list.forEach(task => {
+        displayTask(task);
+    })
+}

@@ -1,11 +1,14 @@
 CURRENT STATE:
 
--able to add tasks to the current list (not yet dispalyed)
 
--change selected list to the new list upon creating a new list
+-Logic implemented to display individual list. Works to display different lists.
 
 NEXT STEPS:
 
--write logic to display an individual todo list.
 
--
+-Add event listener to switch between lists.
+
+-Adjust styling : 
+    -implement scrolling if tasks exceed container
+
+-Add edit and delete buttons for tasks and lists

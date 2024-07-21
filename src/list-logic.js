@@ -16,15 +16,36 @@ export class TodoTask{
     static LOW = 0;
 
     //Takes in args as strings. Priority and status must be set via methods after object creation.
-    constructor(title, description, dueDate, notes){
+    constructor(title, description, dueDate, notes, priority){
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.priority; 
+        this.priority = priority; 
         this.status; 
         this.notes = notes;
         this.id;    //FIGURE OUT HOW TO ASSIGN ID
     }
+
+    getName(){
+        return this.title;
+    }
+
+    getDescription(){
+        return this.description;
+    }
+
+    getDueDate(){
+        return this.dueDate;
+    }
+
+    getPriority(){
+        return this.priority;
+    }
+
+    getNotes(){
+        return this.notes;
+    }
+
 
     //Method to set the id of the task object. Used in the TodoList object.
     setId(id){
@@ -117,6 +138,10 @@ export class TodoList{
 
     getName(){
         return this.name;
+    }
+
+    getList(){
+        return this.list;
     }
 
 }
