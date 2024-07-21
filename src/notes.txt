@@ -1,0 +1,11 @@
+CURRENT STATE:
+
+-able to add tasks to the current list (not yet dispalyed)
+
+-change selected list to the new list upon creating a new list
+
+NEXT STEPS:
+
+-write logic to display an individual todo list.
+
+-

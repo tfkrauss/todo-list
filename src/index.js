@@ -81,14 +81,16 @@ submitModalButton.addEventListener("click", () => {
 
 
 
+    const newList = new TodoList(listName);
 
     //Add a new list to lists array
-    TodoLists.addList(listName);
-    console.log("Printing lists:  ")
+    TodoLists.addList(newList);
+    console.log("Printing lists:  ");
     TodoLists.printLists();
 
-    renderSidebarLists(TodoLists);
+    TodoLists.setActiveList(newList);
 
+    renderSidebarLists(TodoLists);
     listNameInput.value = "";    //clear input
     closeListModal();
 })
@@ -136,4 +138,59 @@ function renderSidebarLists(lists){
 }
 
 
+const addTaskButton = document.querySelector("#add-task-button");
+/*
+** Event listener for add task button.
+** Add task to current list. Display list. Hide the form and show the add task button.
+*/
+const addTaskForm = document.querySelector("#add-task-form");
+addTaskButton.addEventListener("click", () => {
 
+
+    //
+    addTaskButton.style.display = "none";
+    addTaskForm.style.display = "flex";
+
+})
+
+const taskNameInput = document.querySelector("#task-name");
+const taskDescriptionInput = document.querySelector("#task-description");
+const taskNotesInput = document.querySelector("#task-notes");
+const priorityInput = document.querySelector("#priority");
+const dueDateInput = document.querySelector("#due-date");
+
+const createTaskButton = document.querySelector("#create-task-button");
+createTaskButton.addEventListener("click", (event) => {
+
+    //Ensure required fields are filled
+    let isValidForm = addTaskForm.checkValidity();
+    if(isValidForm){
+        event.preventDefault(); //Prevent page refresh upon submission
+    } else{
+        return;
+    }
+
+    //Get all inputs
+    const taskName = taskNameInput.value;
+    console.log("Task name " + taskName);
+    const taskDescription = taskDescriptionInput.value;
+    console.log("Task description " + taskDescription);
+    const taskNotes = taskNotesInput.value;
+    console.log("Task notes " + taskNotes);
+    const taskPriority = priorityInput.value;
+    console.log("Task prio " + taskPriority);
+    const dueDate = dueDateInput.value;
+    console.log("Task due date " + dueDate);
+
+    //Create the new task
+    const newTask = new TodoTask(taskName, taskDescription, dueDate, taskNotes);
+
+    //Add new task to the current list
+    TodoLists.getActiveList().addTask(newTask);
+
+    //Show add task button, hide form.
+    addTaskButton.style.display = "block";
+    addTaskForm.style.display = "none";
+
+
+})

@@ -27,6 +27,53 @@
                 <p>Please select a To-Do list to begin. </p>
                 <p>You can create a new list from the sidebar to the left.</p>
             </div>
+            <div id="list-contents-container">
+                <h1 id="list-header">LIST 1</h1>
+                <div id="add-task-container">
+                    <button id="add-task-button">Add Task</button>
+                </div>
+
+                
+                <form id="add-task-form">
+                    <div id="form-grid">
+                        <div class="input-container">     
+                            <label for="task-name">Task Name</label>                       
+                            <input type="text" id="task-name" placeholder="Task Name" required>
+                        </div>                        
+                        <div class="input-container">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" id="due-date">
+                        </div>
+                        <div class="input-container" id="task-description-container">     
+                            <label for="task-description">Task Description</label>                       
+                            <input type="text" id="task-description" placeholder="Task Description">
+                        </div>
+
+                        <div class="input-container">
+                            <label for="priority">Priority</label>   
+                            <select id="priority">
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select> 
+                        </div>
+                        <div class="input-container">
+                            <label for="task-notes">Task Notes</label>   
+                            <input type="text" id="task-notes" placeholder="Task Notes">
+                        </div>
+                    </div>
+                    <button id="create-task-button">Create Task</button>
+                </form>
+
+                <div class="task-container">
+                    <button class="priority-button"></button>
+                    <div class="task-text">
+                        <p class="task-name-text">Task 1</p>
+                        <p class="task-note-text">Task 1 notes</p>
+                        <p class="due-date-text">Due Date</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

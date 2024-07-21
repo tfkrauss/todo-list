@@ -136,8 +136,7 @@ export class ListsContainer{
     }
 
     //Method to add a list
-    addList(name){        
-        const list = new TodoList(name);
+    addList(list){        
         this.setListId(list);
         this.listsArray.push(list);
         console.log("Added list", list)
@@ -173,6 +172,16 @@ export class ListsContainer{
     //Return the full lists array
     getLists(){
         return this.listsArray;
+    }
+
+    //Setter to change the active list pointer. Invoked upon clicking a new list from sidebar
+    setActiveList(list){
+        this.activeList = list;
+    }
+
+    //Getter for active list.
+    getActiveList(){
+        return this.activeList;
     }
 
 
