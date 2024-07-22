@@ -56,6 +56,7 @@ submitModalButton.addEventListener("click", () => {
     TodoLists.printLists();
 
     TodoLists.setActiveList(newList);
+    displayList(newList);
 
     renderSidebarLists(TodoLists);
     listNameInput.value = "";    //clear input
@@ -79,6 +80,16 @@ function renderSidebarLists(lists){
         const newListButton = document.createElement("button");
         newListButton.className = "list-button"
         newListButton.textContent = list.name;
+        newListButton.dataset.listId = list.getId();
+        console.log("Assigned listId:  " + newListButton.dataset.listId)
+
+        newListButton.addEventListener("click", (e) => {
+            const id = e.target.dataset.listId;
+            const selectedList = TodoLists.getList(parseInt(id));
+            TodoLists.setActiveList(selectedList);
+            displayList(selectedList);
+        })
+
         sidebarList.appendChild(newListButton);
 
 
@@ -141,7 +152,7 @@ createTaskButton.addEventListener("click", (event) => {
     //Show add task button, hide form.
     addTaskButton.style.display = "block";
     addTaskForm.style.display = "none";
-
+    addTaskForm.reset();
 
 })
 
@@ -151,6 +162,7 @@ function displayTask(task){
 
     const taskContainer = document.createElement("div");
     taskContainer.classList.add("task-container");
+    taskContainer.dataset.taskId = task.getId();
 
     const priorityButton = document.createElement("button");
     priorityButton.classList.add("priority-button");
@@ -184,14 +196,43 @@ function displayTask(task){
     taskTextContainer.appendChild(taskDateText);
     taskTextContainer.appendChild(taskNoteText);
     taskTextContainer.appendChild(taskPriorityText);
+
+    const taskButtonsContainer = document.createElement("div");
+    taskButtonsContainer.classList.add("task-buttons-container");
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-task-button");
+    const editButton = document.createElement("button");
+    editButton.classList.add("edit-task-button");
+
+    deleteButton.addEventListener("click", (e) => {
+        const selectedTask = e.target.parentNode.parentNode;
+        const taskId = selectedTask.dataset.taskId;
+        const currentList = TodoLists.getActiveList()
+        currentList.removeTask(taskId);
+
+        currentList.printList();
+
+        displayList(currentList);
+    })
+
+    taskButtonsContainer.appendChild(editButton);
+    taskButtonsContainer.appendChild(deleteButton);
+
+    taskContainer.appendChild(taskButtonsContainer);
 }
 
 /* 
     Function to display the contents of a single list in the main-dispaly div 
     Event listener added to each list-button in the To-Do Lists sidebar
 */
-
+const listContentsContainer = document.querySelector("#list-contents-container");
+const listHeader = document.querySelector("#list-header")
 function displayList(TodoList){
+
+    listHeader.textContent = TodoList.getName();
+    listContentsContainer.style.display = "flex";
+    mainDisplayDefaultText.style.display = "none";
 
     const list = TodoList.getList();
 

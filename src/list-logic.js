@@ -46,6 +46,10 @@ export class TodoTask{
         return this.notes;
     }
 
+    getId(){
+        return parseInt(this.id);
+    }
+
 
     //Method to set the id of the task object. Used in the TodoList object.
     setId(id){
@@ -122,8 +126,10 @@ export class TodoList{
 
     //Function to remove a task from a list. Given a task id, loops through the list to find the task and index. Uses splice to remove task from list array.
     removeTask(taskId){
+
+        taskId = parseInt(taskId);
         this.list.forEach((task, index) => {
-            if(task.id === taskId){
+            if(task.getId() === taskId){
                 this.list.splice(index, 1);
             }
         })
@@ -142,6 +148,10 @@ export class TodoList{
 
     getList(){
         return this.list;
+    }
+
+    getId(){
+        return parseInt(this.id);
     }
 
 }
@@ -191,7 +201,7 @@ export class ListsContainer{
 
     //Returns index of the list
     getList(listId){
-        return this.listsArray.find(list => listId===list.id) || null;
+        return this.listsArray.find(list => listId === list.getId());
     }
 
     //Return the full lists array
